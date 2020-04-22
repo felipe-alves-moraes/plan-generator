@@ -1,0 +1,6 @@
+{
+  "loanAmount": "5000",
+  "nominalRate": "5",
+  "duration": 24,
+  "startDate": "2020-01-01T00:00:01Z"
+}
