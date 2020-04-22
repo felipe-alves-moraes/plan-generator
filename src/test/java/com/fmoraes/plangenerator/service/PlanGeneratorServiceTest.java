@@ -4,7 +4,6 @@ import com.fmoraes.plangenerator.TestData;
 import com.fmoraes.plangenerator.domain.entity.PlanValues;
 import com.fmoraes.plangenerator.domain.entity.RepaymentPlan;
 import com.fmoraes.plangenerator.domain.service.LoansCalculator;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;

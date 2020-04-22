@@ -1,6 +1,5 @@
 package com.fmoraes.plangenerator.controllers.dtos;
 
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 public class PlanResponse {
