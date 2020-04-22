@@ -1,24 +1,24 @@
-#PLAN-GENERATOR
+# PLAN-GENERATOR
 
-##Stack
+## Stack
 * Java 8
 * Spring boot
 * Open-api/Swagger
 * Maven
 
-##How to run
+## How to run
 To run the application you can simply use the maven spring-boot plugin: `mvn spring-boot:run`
 
 If you want to deploy in your onw environment, you can generate a runnable java with the command: `mvn clean package`.
 
 The generated jar is under `target` folder, and it's named `plan-generator-0.0.1-SNAPSHOT.jar`, to run the executable jar use the command `java -jar plan-generator-0.0.1-SNAPSHOT.jar`
 
-##Running the tests
+## Running the tests
 To run the tests the command is `mvn test`, note that this command will not run the integration-test.
 
 To run the integration test the command is `mvn failsafe:integration-test`, the reason they run separately is that usually integration-tests takes more time to run, and you would not want them to run every build.
 
-##Endpoints
+## Endpoints
 The endpoint exposed by this service is `http://localhost:8080/generate-plan`
 
 Also, a swagger interface can be found in `http://localhost:8080/swagger-ui.html` you can use to test the endpoint via browser;
