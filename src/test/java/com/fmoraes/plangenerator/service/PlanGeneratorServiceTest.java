@@ -31,7 +31,7 @@ class PlanGeneratorServiceTest {
 
     @ParameterizedTest
     @MethodSource("parameterizedValidTestData")
-    void shouldTestParameterized(PlanValues planValues, TestResult result) {
+    void shouldGeneratePlansSuccessfully(PlanValues planValues, TestResult result) {
         List<RepaymentPlan> repaymentPlan = planGeneratorService.createRepaymentPlan(planValues);
         assertThat(repaymentPlan).hasSize(result.size);
         assertThat(repaymentPlan.get(0).getDate()).isEqualTo(result.firstDate);
