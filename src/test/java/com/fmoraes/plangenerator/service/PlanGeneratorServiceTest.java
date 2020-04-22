@@ -52,17 +52,14 @@ class PlanGeneratorServiceTest {
                                 BigDecimal.valueOf(219.36),BigDecimal.valueOf(198.53), BigDecimal.valueOf(20.83), BigDecimal.valueOf(5000))),
                 Arguments.of(TestData.createPlanValues(10000, 5, 12),
                         new TestResult(12, zonedDateTime.toString(), zonedDateTime.plusMonths(11).toString(),
-                                BigDecimal.valueOf(856.07), BigDecimal.valueOf(814.40), BigDecimal.valueOf(41.67), BigDecimal.valueOf(10000))),
+                                BigDecimal.valueOf(856.08), BigDecimal.valueOf(814.41), BigDecimal.valueOf(41.67), BigDecimal.valueOf(10000))),
                 Arguments.of(TestData.createPlanValues(15000, 10, 36),
                         new TestResult(36, zonedDateTime.toString(), zonedDateTime.plusMonths(35).toString(),
-                                BigDecimal.valueOf(484.01), BigDecimal.valueOf(359.01), BigDecimal.valueOf(125.00), BigDecimal.valueOf(15000)))
+                                BigDecimal.valueOf(484.00), BigDecimal.valueOf(359.00), BigDecimal.valueOf(125.00), BigDecimal.valueOf(15000)))
         );
     }
 
     private static List<Arguments> parameterizedInvalidTestData() {
-        LocalDateTime dateTime = LocalDateTime.of(2020, 1, 1, 0, 0, 1);
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, ZoneOffset.UTC);
-
         return Arrays.asList(
                 Arguments.of(TestData.createPlanValues(0, 5, 12)),
                 Arguments.of(TestData.createPlanValues(5000, 0, 12)),
@@ -79,10 +76,6 @@ class PlanGeneratorServiceTest {
         public BigDecimal interest;
         public BigDecimal initialOutstandingAmount;
         public BigDecimal remainingOutstandingPrincipal = BigDecimal.ZERO;
-
-        public TestResult(int size) {
-            this.size = size;
-        }
 
         public TestResult(int size, String firstDate, String lastDate, BigDecimal borrowedPaymentAmount, BigDecimal principal, BigDecimal interest, BigDecimal initialOutstandingAmount) {
             this.size = size;

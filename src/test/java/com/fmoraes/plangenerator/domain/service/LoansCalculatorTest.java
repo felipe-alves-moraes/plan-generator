@@ -15,14 +15,14 @@ class LoansCalculatorTest {
      */
     @Test
     public void shouldReturnAnnuityAccordingToAnnuityPaymentFormula() {
-        BigDecimal result = loansCalculator.calculateAnnuity(BigDecimal.valueOf(5000), 5.0, 24);
+        BigDecimal result = loansCalculator.calculateAnnuity(BigDecimal.valueOf(5000), BigDecimal.valueOf(5.0), 24);
 
         assertThat(result).isEqualByComparingTo(BigDecimal.valueOf(219.36));
     }
 
     @Test
     public void shouldReturnZeroAnnuityIfLoanAmountIsNull() {
-        BigDecimal result = loansCalculator.calculateAnnuity(null, 5.0, 24);
+        BigDecimal result = loansCalculator.calculateAnnuity(null, BigDecimal.valueOf(5.0), 24);
 
         assertThat(result).isEqualByComparingTo(BigDecimal.ZERO);
     }
@@ -32,14 +32,14 @@ class LoansCalculatorTest {
      */
     @Test
     public void shouldReturnInterestAccordingToFormula() {
-        BigDecimal result = loansCalculator.calculateInterest(BigDecimal.valueOf(5000), 5.0);
+        BigDecimal result = loansCalculator.calculateInterest(BigDecimal.valueOf(5000), BigDecimal.valueOf(5.0));
 
         assertThat(result).isEqualByComparingTo(BigDecimal.valueOf(20.83));
     }
 
     @Test
     public void shouldReturnZeroInterestIfLoanAmountIsNull() {
-        BigDecimal result = loansCalculator.calculateInterest(null, 5.0);
+        BigDecimal result = loansCalculator.calculateInterest(null, BigDecimal.valueOf(5.0));
 
         assertThat(result).isEqualByComparingTo(BigDecimal.ZERO);
     }

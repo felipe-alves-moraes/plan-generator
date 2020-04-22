@@ -15,7 +15,7 @@ public final class TestData {
         LocalDateTime dateTime = LocalDateTime.of(2020, 1, 1, 0, 0, 1);
         ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, ZoneOffset.UTC);
 
-        return new PlanValues(BigDecimal.valueOf(amount), rate,
+        return new PlanValues(BigDecimal.valueOf(amount), BigDecimal.valueOf(rate),
                 duration, zonedDateTime);
     }
     

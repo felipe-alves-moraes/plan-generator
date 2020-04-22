@@ -16,7 +16,7 @@ public final class PlanGeneratorMapper {
 
     public static PlanValues fromDTO(PlanRequest planRequest) {
         return new PlanValues(new BigDecimal(planRequest.getLoanAmount()),
-                Double.parseDouble(planRequest.getNominalRate()), planRequest.getDuration(),
+                new BigDecimal(planRequest.getNominalRate()), planRequest.getDuration(),
                 ZonedDateTime.parse(planRequest.getStartDate()));
     }
 

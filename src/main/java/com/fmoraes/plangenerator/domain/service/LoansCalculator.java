@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 @Component
@@ -15,26 +16,26 @@ public class LoansCalculator {
     private static final int DAYS_IN_MONTH = 30;
     private static final int DAYS_IN_YEAR = 360;
 
-    public BigDecimal calculateAnnuity(BigDecimal loanAmount, double interestRate, int duration) {
-        if (loanAmount == null || interestRate == 0 || duration == 0) {
+    public BigDecimal calculateAnnuity(BigDecimal loanAmount, BigDecimal interestRate, int duration) {
+        if (isNullOrZero(loanAmount) || isNullOrZero(interestRate) || duration == 0) {
             return BigDecimal.ZERO;
         }
 
-        double monthlyRate = getMonthlyRate(interestRate);
-        double loanDivisor = 1 - (Math.pow(1 + monthlyRate, -duration));
+        BigDecimal monthlyRate = getMonthlyRate(interestRate);
+        BigDecimal loanDivisor = BigDecimal.ONE.subtract(monthlyRate.add(BigDecimal.ONE).pow(-duration, MathContext.DECIMAL32));
         return loanAmount
-                .multiply(BigDecimal.valueOf(monthlyRate))
-                .divide(BigDecimal.valueOf(loanDivisor), 2, RoundingMode.HALF_EVEN);
+                .multiply(monthlyRate)
+                .divide(loanDivisor, 2, RoundingMode.HALF_EVEN);
     }
 
-    public BigDecimal calculateInterest(BigDecimal loanAmount, double interestRate) {
-        if (loanAmount == null || interestRate == 0) {
+    public BigDecimal calculateInterest(BigDecimal loanAmount, BigDecimal interestRate) {
+        if (isNullOrZero(loanAmount) || isNullOrZero(interestRate)) {
             return BigDecimal.ZERO;
         }
 
         LOG.debug("Calculating Interest for values: loanAmount={} and interestRate={}", loanAmount, interestRate);
         BigDecimal interest = loanAmount
-                .multiply(BigDecimal.valueOf(getDecimalRate(interestRate)))
+                .multiply(getDecimalRate(interestRate))
                 .multiply(BigDecimal.valueOf(DAYS_IN_MONTH))
                 .divide(BigDecimal.valueOf(DAYS_IN_YEAR), 2, RoundingMode.HALF_EVEN);
         LOG.debug("Interest={}", interest);
@@ -74,11 +75,15 @@ public class LoansCalculator {
         return borrowerPaymentAmount;
     }
 
-    private double getMonthlyRate(double interestRate) {
-        return getDecimalRate(interestRate) / MONTHS_IN_YEAR;
+    private BigDecimal getMonthlyRate(BigDecimal interestRate) {
+        return getDecimalRate(interestRate).divide(BigDecimal.valueOf(MONTHS_IN_YEAR), 6, RoundingMode.HALF_EVEN);
     }
 
-    private double getDecimalRate(double interestRate) {
-        return interestRate / 100;
+    private BigDecimal getDecimalRate(BigDecimal interestRate) {
+        return interestRate.divide(BigDecimal.valueOf(100), 6, RoundingMode.HALF_EVEN);
+    }
+
+    private boolean isNullOrZero(BigDecimal bigDecimal) {
+        return bigDecimal == null || bigDecimal.compareTo(BigDecimal.ZERO) == 0;
     }
 }

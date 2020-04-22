@@ -5,11 +5,11 @@ import java.time.ZonedDateTime;
 
 public final class PlanValues {
     private final BigDecimal loanAmount;
-    private final double interestRate;
+    private final BigDecimal interestRate;
     private final int duration;
     private final ZonedDateTime startDate;
 
-    public PlanValues(BigDecimal loanAmount, double interestRate, int duration, ZonedDateTime startDate) {
+    public PlanValues(BigDecimal loanAmount, BigDecimal interestRate, int duration, ZonedDateTime startDate) {
         this.loanAmount = loanAmount;
         this.interestRate = interestRate;
         this.duration = duration;
@@ -20,7 +20,7 @@ public final class PlanValues {
         return loanAmount;
     }
 
-    public double getInterestRate() {
+    public BigDecimal getInterestRate() {
         return interestRate;
     }
 

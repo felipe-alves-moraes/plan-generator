@@ -69,7 +69,7 @@ class PlanGeneratorControllerIT {
         mockMvc.perform(post("/generate-plan")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(Files.readAllBytes(Paths.get("", "src/test/resources").resolve("payload.json"))))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isUnprocessableEntity());
     }
 
 }

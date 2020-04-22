@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class PlanGeneratorController {
         this.planGeneratorService = planGeneratorService;
     }
 
-    @ApiResponse(responseCode = "204", description = "When it's not possible to create a plan")
+    @ApiResponse(responseCode = "422", description = "When the payload was accepted, but it's not possible to process the data properly")
     @ApiResponse(responseCode = "201", description = "When plan is created",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = PlanResponse.class))))
     @PostMapping(value = "/generate-plan", consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -38,8 +39,8 @@ public class PlanGeneratorController {
         List<RepaymentPlan> generatedPlan = planGeneratorService.createRepaymentPlan(fromDTO(request));
 
         return generatedPlan.isEmpty() ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.created(null)
+                ResponseEntity.unprocessableEntity().build() :
+                ResponseEntity.status(HttpStatus.CREATED)
                         .body(toDTO(generatedPlan));
     }
 }
